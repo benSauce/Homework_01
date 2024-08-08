@@ -10,20 +10,22 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class Homework_01 extends Application {
-    //required components for user interface: borderpane(layout), pane(display H), textfield(enter order)
+    //Create borderpane, pane, and textfield
     BorderPane borderPane = new BorderPane();
     Pane pane = new Pane();
     TextField text = new TextField();
 
-    //variable order will store current order of H tree
-    int order = 0;
-    int WIDTH = 500, HEIGHT = 550;
+    //int order will store current order of H tree
+    int order = 1;
+    //set default height and width for window
+    int HEIGHT = 800;
+    int WIDTH = 800;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         setUI();
         Scene scene = new Scene(borderPane, WIDTH, HEIGHT);
-        primaryStage.setTitle("H Tree");
+        primaryStage.setTitle("H-Tree Fractal"); // Set the stage title
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -34,23 +36,23 @@ public class Homework_01 extends Application {
     //this method controls the user interface components
     private void setUI() {
         HBox hBox = new HBox();
-        //label and text field will prompt user to enter order of H tree
-        hBox.getChildren().addAll(new Label(" Enter an order: "), text);
+        //Prompt user for H-Tree Order
+        hBox.getChildren().addAll(new Label(" Enter order(int) for H-Tree: "), text);
         hBox.setAlignment(Pos.CENTER);
         text.setPrefColumnCount(10);
         text.setAlignment(Pos.CENTER);
 
         //action is set when enter key is pressed
         text.setOnAction(e -> {
-            //parses the value from text field
+            //set order value based on text input
             order = Integer.parseInt(text.getText());
-            //method will repeat process on new order to continue h tree
+            //paint H-Tree according to order value
             paint();
         });
         borderPane.setBottom(hBox);
         borderPane.setCenter(pane);
 
-        //part of self eval q3 --> observe the width and height changes in the pane which will trigger paint if changed
+        //use listeners to keep track of height and width changes
         pane.widthProperty().addListener((ov, oldVal, newVal) -> paint());
         pane.heightProperty().addListener((ov, oldVal, newVal) -> paint());
     }
@@ -67,7 +69,7 @@ public class Homework_01 extends Application {
             return;
         }
 
-        //if its greater than 0 draw out the h tree
+        //if order is greater than 0 draw h tree
         if (order > 0) {
             //recursive method to draw the h tree
             draw(order, w / 2, h / 2, Math.min(w, h) / 2);
@@ -90,11 +92,11 @@ public class Homework_01 extends Application {
         //vertical line (right side)
         Line line3 = new Line(x2, y1, x2, y2);
 
-        //add all tje lines to the pane
+        //add all lines to the pane
         pane.getChildren().addAll(line1, line2, line3);
     }
 
-    //recursive method: self eval q2 --> draw/display h shapes
+    //recursively draw H-Trees
     private void draw(int order, double x, double y, double size) {
         //only one base case for this method
         if (order == 0) {
