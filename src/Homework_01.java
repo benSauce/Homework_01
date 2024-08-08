@@ -46,7 +46,7 @@ public class Homework_01 extends Application {
         text.setOnAction(e -> {
             //set order value based on text input
             order = Integer.parseInt(text.getText());
-            //paint H-Tree according to order value
+            //paint/repaint H-Tree according to order value
             paint();
         });
         borderPane.setBottom(hBox);
@@ -57,7 +57,7 @@ public class Homework_01 extends Application {
         pane.heightProperty().addListener((ov, oldVal, newVal) -> paint());
     }
 
-    //self eval q3 --> this method will repeat the process and continue to add h to build h tree
+    //paints H-Tree
     private void paint() {
         //clears existing shapes from 'pane'
         pane.getChildren().clear();
@@ -69,14 +69,14 @@ public class Homework_01 extends Application {
             return;
         }
 
-        //if order is greater than 0 draw h tree
+        //if order is greater than 0 draw h tree according to order
         if (order > 0) {
             //recursive method to draw the h tree
             draw(order, w / 2, h / 2, Math.min(w, h) / 2);
         }
     }
 
-    //single H shape: self eval q1 --> this method will draw a single H shape to begin the tree
+    //Draw a single H shape to begin the tree
     private void drawH(double x, double y, double size) {
         //calculate coordinate for the four points of h tree
         double x1 = x - size / 2;
